@@ -14,54 +14,25 @@
 
   <script>
 
-  // initialize the map
-  var map = L.map('map').setView([-33.9296, 151.0537], 13);
+  var map = L.map("map");
+L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png").addTo(map);
 
-  // load a tile layer
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    {
-      attribution: 'Tiles by <a href="http://mapc.org">MAPC</a>, Data by <a href="http://mass.gov/mgis">MassGIS</a>',
-      maxZoom: 17,
-      minZoom: 9
-    }).addTo(map);
-	
-	 // load GeoJSON from an external file
-  $.getJSON("2a.geojson",function(data){
-    // add GeoJSON layer to the map once the file is loaded
-    L.geoJson(data).addTo(map);
-  });
-	    $.getJSON("2b.geojson",function(data){
-    // add GeoJSON layer to the map once the file is loaded
-    L.geoJson(data).addTo(map);
-  });
-	    $.getJSON("2c.geojson",function(data){
-    // add GeoJSON layer to the map once the file is loaded
-    L.geoJson(data).addTo(map);
-  });
-	    $.getJSON("2d.geojson",function(data){
-    // add GeoJSON layer to the map once the file is loaded
-    L.geoJson(data).addTo(map);
-  });
-	    $.getJSON("3d.geojson",function(data){
-    // add GeoJSON layer to the map once the file is loaded
-    L.geoJson(data).addTo(map);
-  });
-	   $.getJSON("3.geojson",function(data){
-    // add GeoJSON layer to the map once the file is loaded
-    L.geoJson(data).addTo(map);
-  });
-	   $.getJSON("3a.geojson",function(data){
-    // add GeoJSON layer to the map once the file is loaded
-    L.geoJson(data).addTo(map);
-  });
-		$.getJSON("3b.geojson",function(data){
-    // add GeoJSON layer to the map once the file is loaded
-    L.geoJson(data).addTo(map);
-  });
-	  	   $.getJSON("3c.geojson",function(data){
-    // add GeoJSON layer to the map once the file is loaded
-    L.geoJson(data).addTo(map);
-  });
+map.setView([48.85, 2.35], 8);
+
+var myRenderer = L.canvas({ padding: 0.5 });
+
+for (var i = 0; i < 100000; i += 1) { // 100k points
+	L.circleMarker(getRandomLatLng(), {
+  	renderer: myRenderer
+  }).addTo(map).bindPopup('marker ' + i);
+}
+
+function getRandomLatLng() {
+	return [
+  	-90 + 180 * Math.random(),
+    -180 + 360 * Math.random()
+  ];
+}
 
   </script>
 </body>
